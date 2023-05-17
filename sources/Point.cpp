@@ -3,10 +3,9 @@
 using namespace ariel;
 using namespace std;
 
-Point::Point() : x_cor(0.0), y_cor(0.0) {}
-
 Point::Point(double pt_x, double pt_y) : x_cor(pt_x), y_cor(pt_y) {}
 
+Point::Point(){}
 
 double Point::getX() const
 {
@@ -28,7 +27,7 @@ std::string Point::print() const
     return "hello";
 }
 
-const Point &Point::moveTowards(const Point &curr, const Point &other, const double dist)
+const Point &Point::moveTowards(const Point &curr, const Point &other,  double dist)
 {
     return curr;
 }

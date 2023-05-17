@@ -1,9 +1,9 @@
 #include "Ninja.hpp"
 
-	Ninja::Ninja(std::string name, Point location, int hp, int speed) :
-    Character::Character(name, location, hp), speed(speed){} 
-    
-	Ninja::~Ninja(){}
+	Ninja::Ninja(std::string name, Point location, int _hp, int speed) :
+    Character::Character(name, location, _hp), speed(speed){}
+
+    Ninja::Ninja(){}
 
 	void Ninja::move(Character *enemy){}
 

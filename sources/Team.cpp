@@ -2,6 +2,8 @@
 
 Team::Team(Character *leader) : leader(leader) {}
 
+Team::Team(){}
+
 void Team::add(Character *player){}
 
 void Team::attack(Team *enemy){}

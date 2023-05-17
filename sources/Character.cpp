@@ -4,8 +4,10 @@ using namespace std;
 
 namespace ariel{
     
-    Character::Character(string name, Point& location, int hp):
-    name(name), location(&location), _hp(hp){}
+    Character::Character(string name, Point& location, int _hp):
+    name(name), location(&location), _hp(_hp){}
+
+    Character::Character(){}
 
     bool Character::isAlive()
     {

@@ -10,7 +10,7 @@ Cowboy::Cowboy(std::string name, Point location)
     bulletsCounter = 6;
 }
 
-Cowboy::~Cowboy(){}
+Cowboy::Cowboy(){}
 
 void Cowboy::shoot(Character *target){}
 

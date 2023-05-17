@@ -10,7 +10,12 @@ namespace ariel
 
     public:
         Cowboy(std::string name, Point location);
-        ~Cowboy();
+        Cowboy();
+        Cowboy(const Cowboy&) = default;
+        Cowboy& operator=(const Cowboy&) = default;
+        Cowboy(Cowboy&&) = default;
+        Cowboy& operator=(Cowboy&&) = default;
+        ~Cowboy() override = default;
         void shoot(Character *ninjaToShoot);
         bool hasBullets();
         void reload();

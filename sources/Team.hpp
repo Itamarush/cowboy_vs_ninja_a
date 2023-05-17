@@ -24,8 +24,13 @@ namespace ariel
         public:
         std::vector <Character> team;
         Character *leader;
-
         Team(Character *leader);
+        Team();
+        Team(const Team&) = default;
+        Team& operator=(const Team&) = default;
+        Team(Team&&) = default;
+        Team& operator=(Team&&) = default;
+        ~Team() = default;
         void add(Character *player);
         void attack(Team * enemy);
         int stillAlive();

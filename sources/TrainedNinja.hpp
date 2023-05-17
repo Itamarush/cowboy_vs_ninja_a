@@ -10,6 +10,11 @@ namespace ariel
 
     public:
         TrainedNinja(std::string name, Point location);
-        ~TrainedNinja();
+        TrainedNinja();
+        TrainedNinja(const TrainedNinja&) = default;
+        TrainedNinja& operator=(const TrainedNinja&) = default;
+        TrainedNinja(TrainedNinja&&) = default;
+        TrainedNinja& operator=(TrainedNinja&&) = default;
+        ~TrainedNinja() override = default;
     };
 }

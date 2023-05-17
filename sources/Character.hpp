@@ -7,13 +7,19 @@
 
 namespace ariel{
     class Character{
-        protected:
+        private:
             Point* location;
             int _hp;
             std::string name;
 
         public:
-            Character(std::string, Point&, int hp);
+            Character(std::string, Point&, int _hp);
+            Character();
+            Character(const Character&) = default;
+            Character& operator=(const Character&) = default;
+            Character(Character&&) = default;
+            Character& operator=(Character&&) = default;
+            virtual ~Character() = default;
             bool isAlive();
             double distance(Character*);
             void hit(int);

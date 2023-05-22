@@ -4,6 +4,9 @@
 #include <string>
 #include "Point.hpp"
 #include <stdexcept>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 namespace ariel{
     class Character{

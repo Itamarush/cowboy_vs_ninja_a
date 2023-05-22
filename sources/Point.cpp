@@ -19,15 +19,27 @@ double Point::getY() const
 
 double Point::distance(Point other) const
 {
-    return 0.0;
+    double distance = std::sqrt(std::pow(other.getX() - this->getX(), 2) + std::pow(other.getY() - this->getY(), 2));
+    return distance;
 }
 
 std::string Point::print() const
 {
-    return "hello";
+    std::string formattedString = "(" + std::to_string(this->getX()) + "," + std::to_string(this->getY()) + ")";
+    return formattedString;
 }
 
-const Point &Point::moveTowards(const Point &curr, const Point &other,  double dist)
+const Point &Point::moveTowards(const Point &curr, const Point &other, double dist)
 {
-    return curr;
+    if (distance == 0)
+        return other;
+    if (other.distance(curr) <= dist)
+        return other;
+    if (dist < 0)
+        throw invalid_argument("distance cant be negative");
+    double dx = other.x_cor - curr.x_cor;
+    double dy = other.y_cor - curr.y_cor;
+    double scale = dist / other.distance(other);
+
+    return Point(other.x_cor + scale * dx, other.y_cor + scale * dy);
 }

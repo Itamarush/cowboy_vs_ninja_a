@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <cmath>
+#include <string>
+#include <stdexcept>
 
 namespace ariel
 {

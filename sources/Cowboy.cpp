@@ -7,21 +7,31 @@ using namespace ariel;
 Cowboy::Cowboy(std::string name, Point location)
     : Character(name, location, 110)
 {
-    bulletsCounter = 6;
+    this->bulletsCounter = 6;
 }
 
 Cowboy::Cowboy(){}
 
-void Cowboy::shoot(Character *target){}
+void Cowboy::shoot(Character *target)
+{
+    if(this->isAlive() && bulletsCounter)
+    {
+        target->hit(10);
+        this->bulletsCounter--;
+    }
+}
 
 bool Cowboy::hasBullets()
 {
-    return true;
+    return this->bulletsCounter;
 }
 
-void Cowboy::reload(){}
+void Cowboy::reload()
+{
+    this->bulletsCounter = 6;
+}
 
 int Cowboy::getBulletCounter()
 {
-    return 1;
+    return this->bulletsCounter;
 }

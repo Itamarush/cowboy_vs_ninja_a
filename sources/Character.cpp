@@ -11,36 +11,47 @@ namespace ariel{
 
     bool Character::isAlive()
     {
-        return true;
+        if(this->_hp > 0)
+            return true;
+        return false;
     }
 
     double Character::distance(Character* other)
     {
-        return 0.0;
+        return distance(other);
     }
 
     void Character::hit(int damage)
     {
-
+        this->_hp -= damage;
     }
 
     std::string Character::print()
     {
-        return "hello";
+        std::ostringstream oss;
+        if (!isAlive())
+        {
+            oss << "(" << name << ")" << std::endl;
+        }
+        else
+        {
+            oss << name << " " << _hp << " " << location << std::endl;
+        }
+        return oss.str();
     }
 
     std::string Character::getName()
     {
-        return "itamar";
+        return this->name;
     }
 
     Point* Character::getLocation()
     {
-        return location;
+        return this->location;
     }
 
     void Character::setLocation(Point* location)
     {
-
+        this->location = location;
     }
 }

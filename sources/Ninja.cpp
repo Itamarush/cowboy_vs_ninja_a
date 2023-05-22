@@ -5,7 +5,10 @@
 
     Ninja::Ninja(){}
 
-	void Ninja::move(Character *enemy){}
+	void Ninja::move(Character *enemy)
+    {
+        
+    }
 
 	void Ninja::slash(Character *enemy){}
 	

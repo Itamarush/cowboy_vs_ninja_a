@@ -7,8 +7,6 @@ namespace ariel{
     Character::Character(string name, Point location, int _hp, int isPlaying, int isCowboy):
     name(name), location(location), _hp(_hp), isPlaying(isPlaying), isCowboy(isCowboy){}
 
-    Character::Character(){}
-
     bool Character::isAlive()
     {
         return _hp;
@@ -16,11 +14,16 @@ namespace ariel{
 
     double Character::distance(Character* other)
     {
-        return distance(other);
+        return location.distance(other->getLocation());
     }
 
     void Character::hit(int damage)
     {
+        if (damage < 0)
+        {
+            throw std::invalid_argument("damage value cannot be negative");
+        }
+        
         this->_hp -= damage;
         
         if (_hp < 0)

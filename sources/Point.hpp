@@ -17,11 +17,6 @@ namespace ariel
             
             Point(double pt_x, double pt_y);
             Point();
-            Point(const Point&) = default;
-            Point& operator=(const Point&) = default;
-            Point(Point&&) = default;
-            Point& operator=(Point&&) = default;
-            ~Point() = default;
             double getX() const;
             double getY() const;
             double distance(Point other) const;

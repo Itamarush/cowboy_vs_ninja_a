@@ -10,12 +10,45 @@
 #include <sstream>
 #include <stdexcept>
 #include <cassert>
+#include <random>
+#include <chrono>
+
 using namespace std;
 
 #include "sources/Team.hpp" //no need for other includes
 
 using namespace ariel;
 
+double random_float(double min = -100, double max = 100) {
+    std::default_random_engine generator(static_cast<unsigned long>(std::chrono::system_clock::now().time_since_epoch().count()));
+    std::uniform_real_distribution<double> distribution(min, max);
+
+    return distribution(generator);
+}
+
+    auto multi_attack = [](int n, Team &attacker, Team &defender) {
+        for (int i = 0; i < n; i++) {
+            if (defender.stillAlive()) {
+                attacker.attack(&defender);
+            }
+        }
+    };
+
+    auto create_yninja = [](double x = random_float(), double y = random_float()) {
+    return new YoungNinja{"Bob", Point{x, y}};
+};
+
+auto create_tninja = [](double x = random_float(), double y = random_float()) {
+    return new TrainedNinja{"Bob", Point{x, y}};
+};
+
+auto create_oninja = [](double x = random_float(), double y = random_float()) {
+    return new OldNinja{"Bob", Point{x, y}};
+};
+
+auto create_cowboy = [](double x = random_float(), double y = random_float()) {
+    return new Cowboy{"Bob", Point{x, y}};
+};
 
 int main() {
    //  Point a(32.3,44),b(1.3,3.5);
@@ -47,18 +80,41 @@ int main() {
    //   if (team_A.stillAlive() > 0) cout << "winner is team_A" << endl;
    //   else cout << "winner is team_B" << endl;
 
-         Cowboy cowboy{"Bobcow", Point{2, 3}};
-         Ninja ninja{"ninjaal", Point{2, 3}, 100, 14,1,1};
-         Team team(&cowboy);
-         Team team2(&ninja);
-         int x = team.stillAlive();
-         int y = team2.stillAlive();
-      //   Point p4{Point::moveTowards(p1, p2, third_p)};
-      //   CHECK_EQ(p4.distance(p2), doctest::Approx(third_p * 2).epsilon(0.001));
+        Team team{create_cowboy(-1, -1)};
+        team.add(create_yninja(0, 0));
+        team.add(create_oninja(-0.5, -0.5));
+        team.add(create_tninja(0.5, 0.5));
+        team.add(create_cowboy());
 
-      //   // There is no such a thing as negative distance
-      //   CHECK_THROWS_AS(Point::moveTowards(p1, p2, -1),std::invalid_argument);
+        int x = team.stillAlive(); // 5
 
+        auto young_ninja = create_yninja(0, 0);
+        auto trained_ninja = create_tninja(1, 1);
+        auto old_ninja = create_oninja(2, 2);
+        auto young_ninja2 = create_yninja(3, 3);
+        auto cowboy = create_cowboy(-6, -6);
+	auto cowboy2 = create_cowboy(-7, -7);
+	auto cowboy3 = create_cowboy(-8, -8);
+        Team team2{young_ninja};
+        team2.add(trained_ninja);
+        team2.add(old_ninja);
+        team2.add(young_ninja2);
+        team2.add(cowboy);
+	team2.add(cowboy2);
+	team2.add(cowboy3);
+
+        int y = team2.stillAlive(); // 7
+
+        multi_attack(2, team, team2);
+        int la = young_ninja->isAlive(); // Young ninja should be dead
+
+        int ab= trained_ninja->isAlive();
+        int bc = old_ninja->isAlive();
+        int cd = young_ninja2->isAlive(); // Everyone else should still be alive
+        int ab1= trained_ninja->isAlive();
+        int bc2 = old_ninja->isAlive();
+        int cd3 = young_ninja2->isAlive();
+        int xx = 4;
 
      return 0; // no memory issues. Team should free the memory of its members. both a and b teams are on the stack. 
 

@@ -19,11 +19,6 @@ namespace ariel{
 
         public:
             Character(std::string, Point, int, int, int);
-            Character();
-            Character(const Character&) = default;
-            Character& operator=(const Character&) = default;
-            Character(Character&&) = default;
-            Character& operator=(Character&&) = default;
             virtual ~Character() = default;
             bool isAlive();
             double distance(Character*);

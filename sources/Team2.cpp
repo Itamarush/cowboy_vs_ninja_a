@@ -2,16 +2,12 @@
 
 Team2::Team2(Character *leader) : leader(leader) {add(leader);}
 
-Team2::Team2(){}
-
 Team2::~Team2()
 {
-    for (unsigned int i = 0; i < 10; i++)
+    for (const auto& fighter : fighters)
     {
-        delete fighters[i];
-        fighters[i] = NULL;
+        delete fighter;   
     }
-    leader = NULL;
 }
 
 void Team2::attack(Team2 *enemies)

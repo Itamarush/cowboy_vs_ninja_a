@@ -4,12 +4,10 @@ Team::Team(Character *leader) : leader(leader) {add(leader);}
 
 Team::~Team()
 {
-    for (unsigned int i = 0; i < 10; i++)
+    for (const auto& fighter : fighters)
     {
-        delete fighters[i];
-        fighters[i] = NULL;
+        delete fighter;   
     }
-    leader = NULL;
 };
 
 void Team::add(Character *player)
@@ -64,7 +62,12 @@ void Team::attackEnemy(Character *member, Character *enemy)
         }
         else
         {
-            cowboy->shoot(enemy);
+            if (enemy->isAlive())
+            {
+                cowboy->shoot(enemy);
+            }
+            else
+                return;
         }
     }
     else if (Ninja *ninja = dynamic_cast<Ninja*>(member))
@@ -72,7 +75,13 @@ void Team::attackEnemy(Character *member, Character *enemy)
         double dist = ninja->distance(enemy);
         if (dist < 1.0)
         {
-            ninja->slash(enemy);
+            if (enemy->isAlive())
+            {
+                ninja->slas
+                h(enemy);
+            }
+            else
+                return;
         }
         else
         {

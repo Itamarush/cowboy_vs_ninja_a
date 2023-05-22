@@ -26,11 +26,6 @@ namespace ariel
         
         public:
         Team(Character *leader);
-        Team();
-        Team(const Team&) = default;
-        Team& operator=(const Team&) = default;
-        Team(Team&&) = default;
-        Team& operator=(Team&&) = default;
         ~Team();
         void add(Character *player);
         Character *closetMemberIsAlive(std::vector<Character *> &members, Character *leader);

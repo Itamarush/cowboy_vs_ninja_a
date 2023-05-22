@@ -3,8 +3,6 @@
 	Ninja::Ninja(std::string name, Point location, int _hp, int speed, int isPlaying, int isCowboy) :
     Character::Character(name, location, _hp, 0, 0), speed(speed){}
 
-    Ninja::Ninja(){}
-
 	void Ninja::move(Character *enemy)
     {
         Point newLocation = Point::moveTowards(getLocation(), (enemy->getLocation()), speed);

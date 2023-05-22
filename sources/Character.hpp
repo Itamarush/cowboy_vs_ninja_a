@@ -11,12 +11,14 @@
 namespace ariel{
     class Character{
         private:
-            Point* location;
+            Point location;
             int _hp;
             std::string name;
+            bool isPlaying;
+            bool isCowboy;
 
         public:
-            Character(std::string, Point&, int _hp);
+            Character(std::string, Point, int, int, int);
             Character();
             Character(const Character&) = default;
             Character& operator=(const Character&) = default;
@@ -28,8 +30,12 @@ namespace ariel{
             void hit(int);
             virtual std::string print();
             std::string getName();
-            Point* getLocation();
-            void setLocation(Point* location);
+            Point getLocation();
+            void setLocation(Point);
+            void setIsPlaying(bool);
+            bool getIsPlaying();
+            bool getIsNinja();
+            bool getIsCowboy();
     };
 }
 

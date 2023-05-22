@@ -5,7 +5,7 @@
 using namespace ariel;
 
 Cowboy::Cowboy(std::string name, Point location)
-    : Character(name, location, 110)
+    : Character(name, location, 110, 0, 1)
 {
     this->bulletsCounter = 6;
 }
@@ -21,7 +21,7 @@ void Cowboy::shoot(Character *target)
     }
 }
 
-bool Cowboy::hasBullets()
+bool Cowboy::hasboolets()
 {
     return this->bulletsCounter;
 }

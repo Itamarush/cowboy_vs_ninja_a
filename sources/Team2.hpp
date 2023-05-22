@@ -19,25 +19,25 @@ using namespace std;
 
 namespace ariel
 {
-    class Team 
+    class Team2 
     {
         vector <Character*> fighters;
         Character *leader;
         
         public:
-        Team(Character *leader);
-        Team();
-        Team(const Team&) = default;
-        Team& operator=(const Team&) = default;
-        Team(Team&&) = default;
-        Team& operator=(Team&&) = default;
-        ~Team();
+        Team2(Character *leader);
+        Team2();
+        Team2(const Team2&) = default;
+        Team2& operator=(const Team2&) = default;
+        Team2(Team2&&) = default;
+        Team2& operator=(Team2&&) = default;
+        ~Team2();
         void add(Character *player);
         Character *closetMemberIsAlive(std::vector<Character *> &members, Character *leader);
         Character *closetEnemyIsAlive(std::vector<Character *> &members, Character *leader);
         void attackEnemy(Character *attacker, Character *victim);
         void setLeader(Character *newLeader);
-        void attack(Team * enemy);
+        void attack(Team2 * enemy);
         int stillAlive();
         void print();
     };

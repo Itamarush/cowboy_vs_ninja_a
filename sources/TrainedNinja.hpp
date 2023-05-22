@@ -15,6 +15,6 @@ namespace ariel
         TrainedNinja& operator=(const TrainedNinja&) = default;
         TrainedNinja(TrainedNinja&&) = default;
         TrainedNinja& operator=(TrainedNinja&&) = default;
-        ~TrainedNinja() override = default;
+        // ~TrainedNinja() override = default;
     };
 }

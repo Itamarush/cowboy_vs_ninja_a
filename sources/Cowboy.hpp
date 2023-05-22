@@ -15,9 +15,8 @@ namespace ariel
         Cowboy& operator=(const Cowboy&) = default;
         Cowboy(Cowboy&&) = default;
         Cowboy& operator=(Cowboy&&) = default;
-        ~Cowboy() override = default;
         void shoot(Character *ninjaToShoot);
-        bool hasBullets();
+        bool hasboolets();
         void reload();
         int getBulletCounter();
     };

@@ -1,8 +1,10 @@
-#include "Team.hpp"
+#include "Team2.hpp"
 
-Team::Team(Character *leader) : leader(leader) {add(leader);}
+Team2::Team2(Character *leader) : leader(leader) {add(leader);}
 
-Team::~Team()
+Team2::Team2(){}
+
+Team2::~Team2()
 {
     for (unsigned int i = 0; i < 10; i++)
     {
@@ -10,21 +12,9 @@ Team::~Team()
         fighters[i] = NULL;
     }
     leader = NULL;
-};
-
-void Team::add(Character *player)
-{
-    if (fighters.size() == 10)
-        throw runtime_error("there are maximum 10 members that are not already in other teams");
-    if (player->getIsPlaying())
-        throw runtime_error("The player is already in a team");
-
-    fighters.push_back(player);
-    player->setIsPlaying(true);
 }
 
-
-void Team::attack(Team *enemies)
+void Team2::attack(Team2 *enemies)
 {
     if (enemies == nullptr)
     {
@@ -54,7 +44,7 @@ void Team::attack(Team *enemies)
 }
 /// @brief change!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 
-void Team::attackEnemy(Character *member, Character *enemy)
+void Team2::attackEnemy(Character *member, Character *enemy)
 {
     if (Cowboy *cowboy = dynamic_cast<Cowboy*>(member))
     {
@@ -81,7 +71,18 @@ void Team::attackEnemy(Character *member, Character *enemy)
     }
 }
 
-Character* Team::closetMemberIsAlive(std::vector<Character *> &members, Character *leader)
+void Team2::add(Character *player)
+{
+    if (fighters.size() == 10)
+        throw runtime_error("there are maximum 10 members that are not already in other teams");
+    if (player->getIsPlaying())
+        throw runtime_error("The player is already in a team");
+
+    fighters.push_back(player);
+    player->setIsPlaying(true);
+}
+
+Character* Team2::closetMemberIsAlive(std::vector<Character *> &members, Character *leader)
 {
     if (members.capacity() == 0)
     {
@@ -110,7 +111,7 @@ Character* Team::closetMemberIsAlive(std::vector<Character *> &members, Characte
     return newLeader;
 }
 
-Character* Team::closetEnemyIsAlive(std::vector<Character *> &enemies, Character *leader)
+Character* Team2::closetEnemyIsAlive(std::vector<Character *> &enemies, Character *leader)
 {
     if (enemies.capacity() == 0)
     {
@@ -131,7 +132,7 @@ Character* Team::closetEnemyIsAlive(std::vector<Character *> &enemies, Character
     return newEnemy;
 }
 
-int Team::stillAlive()
+int Team2::stillAlive()
 {
     int counter = 0;
 
@@ -147,7 +148,7 @@ int Team::stillAlive()
 
 //change!!!!!!!!!!!!1
 
-void Team::print()
+void Team2::print()
 {
   for (Character *member : fighters)
     if (!member->getIsNinja())
@@ -157,4 +158,4 @@ void Team::print()
       cout << member->print() << endl;
 }
 //change!!!
-void Team::setLeader(Character *newLeader) { leader = newLeader; }
+void Team2::setLeader(Character *newLeader) { leader = newLeader; }

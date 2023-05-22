@@ -4,16 +4,14 @@ using namespace std;
 
 namespace ariel{
     
-    Character::Character(string name, Point& location, int _hp):
-    name(name), location(&location), _hp(_hp){}
+    Character::Character(string name, Point location, int _hp, int isPlaying, int isCowboy):
+    name(name), location(location), _hp(_hp), isPlaying(isPlaying), isCowboy(isCowboy){}
 
     Character::Character(){}
 
     bool Character::isAlive()
     {
-        if(this->_hp > 0)
-            return true;
-        return false;
+        return _hp;
     }
 
     double Character::distance(Character* other)
@@ -24,6 +22,11 @@ namespace ariel{
     void Character::hit(int damage)
     {
         this->_hp -= damage;
+        
+        if (_hp < 0)
+        {
+            this->_hp = 0;
+        }
     }
 
     std::string Character::print()
@@ -35,7 +38,7 @@ namespace ariel{
         }
         else
         {
-            oss << name << " " << _hp << " " << location << std::endl;
+            oss << name << " " << _hp << " " << &location << std::endl;
         }
         return oss.str();
     }
@@ -45,13 +48,33 @@ namespace ariel{
         return this->name;
     }
 
-    Point* Character::getLocation()
+    Point Character::getLocation()
     {
-        return this->location;
+        return location;
     }
 
-    void Character::setLocation(Point* location)
+    void Character::setLocation(Point loca)
     {
-        this->location = location;
+        location = loca;
+    }
+
+    void Character::setIsPlaying(bool par)
+    {
+        this->isPlaying = par;
+    }
+
+    bool Character::getIsPlaying()
+    {
+        return this->isPlaying;
+    }
+
+    bool Character::getIsNinja()
+    {
+        return !(this->isCowboy);
+    }
+
+    bool Character::getIsCowboy()
+    {
+        return this->isCowboy;
     }
 }

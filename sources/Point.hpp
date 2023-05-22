@@ -26,6 +26,6 @@ namespace ariel
             double getY() const;
             double distance(Point other) const;
             std::string print() const;
-            static const Point &moveTowards(const Point &curr, const Point &other, double dist);
+            static Point moveTowards(const Point &curr, const Point &other, double dist);
     };
 }

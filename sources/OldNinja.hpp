@@ -1,3 +1,4 @@
+#pragma once
 #include "Ninja.hpp"
 using namespace ariel;
 
@@ -9,5 +10,5 @@ public:
 	OldNinja& operator=(const OldNinja&) = default;
 	OldNinja(OldNinja&&) = default;
 	OldNinja& operator=(OldNinja&&) = default;
-	~OldNinja() override = default;
+	// ~OldNinja() override = default;
 };

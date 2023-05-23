@@ -21,23 +21,47 @@ namespace ariel
 {
     class Team 
     {
+        protected:
         vector <Character*> fighters;
         Character *leader;
         
         public:
         Team(Character *leader);
         ~Team();
-        void add(Character *player);
-        Character *closetMemberIsAlive(std::vector<Character *> &members, Character *leader);
-        Character *closetEnemyIsAlive(std::vector<Character *> &members, Character *leader);
+        virtual void add(Character *player);
+        virtual Character *closetMemberIsAlive(std::vector<Character *> &members, Character *leader);
+        virtual Character *closetEnemyIsAlive(std::vector<Character *> &members, Character *leader);
         void attackEnemy(Character *attacker, Character *victim);
         void setLeader(Character *newLeader);
         void attack(Team * enemy);
-        int stillAlive();
-        void print();
+        virtual int stillAlive();
+        virtual void print();
         ///
             std::vector<Character *> getAliveMembers(const std::vector<Character *> &characters) const;
 
     };
+
+        class Team2 : public Team
+    {
+        vector <Character*> fighters2;
+        Character *leader;
+        
+        public:
+        Team2(Character *leader);
+        ~Team2();
+        void add(Character *player) override;
+        // Character *closetMemberIsAlive(std::vector<Character *> &members, Character *leader) override;
+        // Character *closetEnemyIsAlive(std::vector<Character *> &members, Character *leader) override;
+        // void attackEnemy(Character *attacker, Character *victim);
+        // void setLeader(Character *newLeader);
+        // void attack(Team2* enemy);
+        int stillAlive() override;
+        void print() override;
+        std::vector<Character *> getMembers();
+        std::vector<Character *> getAliveMembers(const std::vector<Character *> &characters);
+
+    };
+
+
 
 }

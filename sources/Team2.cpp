@@ -1,157 +1,75 @@
-#include "Team2.hpp"
+#include "Team.hpp"
 
-Team2::Team2(Character *leader) : leader(leader) {add(leader);}
+Team2::Team2(Character *leader) : Team(leader) 
+{
+    if(leader->getIsPlaying())
+    {
+        fighters.clear();
+        leader->setIsPlaying(false);
+    }
+    add(leader);
+}
 
 Team2::~Team2()
 {
-    for (const auto& fighter : fighters)
+    for (const auto& fighter : fighters2)
     {
         delete fighter;   
     }
 }
-
-void Team2::attack(Team2 *enemies)
+// change!!!!!!!!11
+void Team2::add(Character *character)
 {
-    if (enemies == nullptr)
+    if (character->getIsPlaying())
     {
-        throw std::invalid_argument("Enemy team is null!");
+        throw std::runtime_error(character->getName() + " is already in a team!");
     }
-        for (const auto& fighter : fighters)
+    if (fighters2.size() >= 10)
+    {
+        throw std::runtime_error("The team is full, cannot add more members!");
+    }
+    if (std::find(fighters2.begin(), fighters2.end(), character) != fighters2.end())
+    {
+        throw std::runtime_error(character->getName() + " is already in the team!");
+    }
+    fighters2.push_back(character);
+    character->setIsPlaying(true);
+}
+    std::vector<Character *> Team2::getMembers()
+    {
+        return fighters2;
+    }
+
+    std::vector<Character *> Team2::getAliveMembers(const std::vector<Character *> &characters)
+    {
+        std::vector<Character *> aliveMembers;
+        for (auto character : characters)
         {
-            if (fighter->getIsCowboy())
+            if (character->isAlive())
             {
-                Character *theEnemy;
-                this->leader = closetMemberIsAlive(fighters, this->leader);
-                theEnemy = closetEnemyIsAlive(enemies->fighters, this->leader);
-                attackEnemy(fighter, theEnemy);
+                aliveMembers.push_back(character);
             }
         }
+        return aliveMembers;
+    }
 
-        for (const auto& fighter : fighters)
+    int Team2::stillAlive()
+    {
+        int count = 0;
+        for (auto member : fighters2)
         {
-            if (fighter->getIsNinja())
+            if (member->isAlive())
             {
-                Character *theEnemy;
-                this->leader = closetMemberIsAlive(fighters, this->leader);
-                theEnemy = closetEnemyIsAlive(enemies->fighters, this->leader);
-                attackEnemy(fighter, theEnemy);
-            }
-        } 
-}
-/// @brief change!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-
-void Team2::attackEnemy(Character *member, Character *enemy)
-{
-    if (Cowboy *cowboy = dynamic_cast<Cowboy*>(member))
-    {
-        if (!(cowboy->getBulletCounter()))
-        {
-            cowboy->reload();
-        }
-        else
-        {
-            cowboy->shoot(enemy);
-        }
-    }
-    else if (Ninja *ninja = dynamic_cast<Ninja*>(member))
-    {
-        double dist = ninja->distance(enemy);
-        if (dist < 1.0)
-        {
-            ninja->slash(enemy);
-        }
-        else
-        {
-            ninja->move(enemy);
-        }
-    }
-}
-
-void Team2::add(Character *player)
-{
-    if (fighters.size() == 10)
-        throw runtime_error("there are maximum 10 members that are not already in other teams");
-    if (player->getIsPlaying())
-        throw runtime_error("The player is already in a team");
-
-    fighters.push_back(player);
-    player->setIsPlaying(true);
-}
-
-Character* Team2::closetMemberIsAlive(std::vector<Character *> &members, Character *leader)
-{
-    if (members.capacity() == 0)
-    {
-        throw std::invalid_argument("Members team is empty!");
-    }
-
-    else if (leader->isAlive())
-    {
-        return leader;
-    }
-    
-    int max = 9999999;
-    Character *newLeader;
-    
-    if (!(leader->isAlive()))
-    {
-        for (const auto& member : members)
-        {
-            if (leader->distance(member) < max)
-            {
-                max = leader->distance(member);
-                newLeader = member;
+                count++;
             }
         }
+        return count;
     }
-    return newLeader;
-}
 
-Character* Team2::closetEnemyIsAlive(std::vector<Character *> &enemies, Character *leader)
-{
-    if (enemies.capacity() == 0)
+    void Team2::print()
     {
-        throw std::invalid_argument("enemies team is empty!");
-    }
-    
-    int max = 9999999;
-    Character *newEnemy;
-    
-        for (const auto& enemy : enemies)
+        for (auto member : fighters2)
         {
-            if (leader->distance(enemy) < max)
-            {
-                max = leader->distance(enemy);
-                newEnemy = enemy;
-            }
-        }
-    return newEnemy;
-}
-
-int Team2::stillAlive()
-{
-    int counter = 0;
-
-    for (const auto& fighter : fighters)
-    {
-        if (fighter->isAlive())
-        {
-            counter++;
+            std::cout << "    " << member->print() << std::endl;
         }
     }
-    return counter;
-}
-
-//change!!!!!!!!!!!!1
-
-void Team2::print()
-{
-  for (Character *member : fighters)
-    if (!member->getIsNinja())
-      cout << member->print() << endl;
-  for (Character *member : fighters)
-    if (member->getIsNinja())
-      cout << member->print() << endl;
-}
-//change!!!
-void Team2::setLeader(Character *newLeader) { leader = newLeader; }

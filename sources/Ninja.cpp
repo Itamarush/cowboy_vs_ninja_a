@@ -2,12 +2,19 @@
 
 	Ninja::Ninja(std::string name, Point location, int _hp, int speed, int isPlaying, int isCowboy) :
     Character::Character(name, location, _hp, 0, 0), speed(speed){}
-
-	void Ninja::move(Character *enemy)
+void Ninja::move(Character *enemy){
+    if(!this->isAlive())
     {
-        Point newLocation = Point::moveTowards(getLocation(), (enemy->getLocation()), speed);
-        this->setLocation(newLocation);
+        throw runtime_error("a dead Character can't move"); // throw an exception
     }
+    Point new_loc = Point::moveTowards(this->getLocation(), enemy->getLocation(), speed);
+    this->setLocation(new_loc);
+}
+	// void Ninja::move(Character *enemy)
+    // {
+    //     Point newLocation = Point::moveTowards(getLocation(), (enemy->getLocation()), speed);
+    //     this->setLocation(newLocation);
+    // }
 
 void Ninja::slash(Character *enemy)
 {

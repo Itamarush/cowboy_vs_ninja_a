@@ -21,12 +21,30 @@ void Team::add(Character *player)
     player->setIsPlaying(true);
 }
 
-
+/// @brief 
+    std::vector<Character *> Team::getAliveMembers(const std::vector<Character *> &characters) const
+    {
+        std::vector<Character *> aliveMembers;
+        for (auto character : characters)
+        {
+            if (character->isAlive())
+            {
+                aliveMembers.push_back(character);
+            }
+        }
+        return aliveMembers;
+    }
+/// @param enemies 
 void Team::attack(Team *enemies)
 {
     if (enemies == nullptr)
     {
         throw std::invalid_argument("Enemy team is null!");
+    }
+
+    if (!enemies->stillAlive())
+    {
+        throw std::runtime_error("The enemy is already dead");
     }
         for (const auto& fighter : fighters)
         {
@@ -34,7 +52,10 @@ void Team::attack(Team *enemies)
             {
                 Character *theEnemy;
                 this->leader = closetMemberIsAlive(fighters, this->leader);
-                theEnemy = closetEnemyIsAlive(enemies->fighters, this->leader);
+                std::vector<Character *> aliveMembers = getAliveMembers(enemies->fighters);
+                if(aliveMembers.capacity() == 0)
+                {return;}
+                theEnemy = closetEnemyIsAlive(aliveMembers, this->leader);
                 attackEnemy(fighter, theEnemy);
             }
         }
@@ -45,7 +66,10 @@ void Team::attack(Team *enemies)
             {
                 Character *theEnemy;
                 this->leader = closetMemberIsAlive(fighters, this->leader);
-                theEnemy = closetEnemyIsAlive(enemies->fighters, this->leader);
+                std::vector<Character *> aliveMembers = getAliveMembers(enemies->fighters);
+                if(aliveMembers.capacity() == 0)
+                {return;}
+                theEnemy = closetEnemyIsAlive(aliveMembers, this->leader);
                 attackEnemy(fighter, theEnemy);
             }
         } 
@@ -73,12 +97,11 @@ void Team::attackEnemy(Character *member, Character *enemy)
     else if (Ninja *ninja = dynamic_cast<Ninja*>(member))
     {
         double dist = ninja->distance(enemy);
-        if (dist < 1.0)
+        if (dist < 1)
         {
             if (enemy->isAlive())
             {
-                ninja->slas
-                h(enemy);
+                ninja->slash(enemy);
             }
             else
                 return;
@@ -103,7 +126,7 @@ Character* Team::closetMemberIsAlive(std::vector<Character *> &members, Characte
     }
     
     int max = 9999999;
-    Character *newLeader;
+    Character *newLeader = nullptr;
     
     if (!(leader->isAlive()))
     {
@@ -127,14 +150,19 @@ Character* Team::closetEnemyIsAlive(std::vector<Character *> &enemies, Character
     }
     
     int max = 9999999;
-    Character *newEnemy;
+    Character *newEnemy = nullptr;
     
         for (const auto& enemy : enemies)
         {
-            if (leader->distance(enemy) < max)
+            
+            if (enemy->isAlive())
             {
-                max = leader->distance(enemy);
-                newEnemy = enemy;
+                double aaa = leader->distance(enemy);
+                if (aaa < max)
+                {
+                    max = aaa;
+                    newEnemy = enemy;
+                }
             }
         }
     return newEnemy;

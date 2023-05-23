@@ -2,6 +2,7 @@
 
 #include "Character.hpp"
 
+
 namespace ariel
 {
     class Cowboy : public Character

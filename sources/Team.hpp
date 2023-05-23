@@ -35,6 +35,9 @@ namespace ariel
         void attack(Team * enemy);
         int stillAlive();
         void print();
+        ///
+            std::vector<Character *> getAliveMembers(const std::vector<Character *> &characters) const;
+
     };
 
 }

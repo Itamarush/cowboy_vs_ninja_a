@@ -103,19 +103,16 @@ int main() {
 	team2.add(cowboy2);
 	team2.add(cowboy3);
 
-        int y = team2.stillAlive(); // 7
+        multi_attack(2, team, team2);
+        team.attack(&team2);
 
         multi_attack(2, team, team2);
-        int la = young_ninja->isAlive(); // Young ninja should be dead
 
-        int ab= trained_ninja->isAlive();
-        int bc = old_ninja->isAlive();
-        int cd = young_ninja2->isAlive(); // Everyone else should still be alive
-        int ab1= trained_ninja->isAlive();
-        int bc2 = old_ninja->isAlive();
-        int cd3 = young_ninja2->isAlive();
-        int xx = 4;
+        multi_attack(4, team, team2);
 
+        multi_attack(2, team, team2);
+
+    int xadsa= 8;
      return 0; // no memory issues. Team should free the memory of its members. both a and b teams are on the stack. 
 
 }
